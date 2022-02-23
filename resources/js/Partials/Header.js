@@ -60,6 +60,20 @@ const Header = ({ auth }) => {
                                 method="post"
                                 as="button"
                             >
+                                Usuarios
+                            </Dropdown.Link>
+                            <Dropdown.Link
+                                href={route("logout")}
+                                method="post"
+                                as="button"
+                            >
+                                Roles
+                            </Dropdown.Link>
+                            <Dropdown.Link
+                                href={route("logout")}
+                                method="post"
+                                as="button"
+                            >
                                 Log Out
                             </Dropdown.Link>
                         </Dropdown.Content>

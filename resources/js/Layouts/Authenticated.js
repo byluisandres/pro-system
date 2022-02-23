@@ -10,7 +10,7 @@ const Authenticated = ({ auth, children }) => {
                     <Header auth={auth} />
                     <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100">
                         <div className="container mx-auto sm:px-4 pt-4">
-                            <div className="p-8 bg-white rounded-md mb-5">
+                            <div className="p-8 bg-white rounded-md">
                                 {children}
                             </div>
                         </div>

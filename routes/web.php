@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SalesController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,8 +31,22 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+    // Categories
+    Route::resource('categories', CategoryController::class);
+
+    Route::resource('products', ProductController::class);
+
+    Route::resource('purchases', PurchaseController::class);
+
+    Route::resource('suppliers', SupplierController::class);
+
+    Route::resource('sales', SalesController::class);
+
+    Route::resource('clients', ClientController::class);
+});
+
+
+require __DIR__ . '/auth.php';
