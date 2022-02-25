@@ -68,7 +68,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return Inertia::render('Categories/Edit', ["category" => $category]);
     }
 
     /**
@@ -80,7 +80,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->validate([
+            "name" => "required|min:3",
+        ]);
+
+
+        $category->name = $data['name'];
+        $category->description = $request['description'];
+        $category->status = $request['status'];
+        $category->save();
+
+        return redirect('/categories')->with('message', 'Categoria editada correctamente');
     }
 
     /**
@@ -91,6 +101,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect('/categories')->with('message', 'Categoría borrada correctamente');
     }
 }
