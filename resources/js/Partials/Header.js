@@ -60,6 +60,13 @@ const Header = ({ auth }) => {
                                 method="post"
                                 as="button"
                             >
+                                Perfil
+                            </Dropdown.Link>
+                            <Dropdown.Link
+                                href={route("logout")}
+                                method="post"
+                                as="button"
+                            >
                                 Usuarios
                             </Dropdown.Link>
                             <Dropdown.Link

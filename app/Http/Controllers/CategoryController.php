@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Categories/Index');
+        $categories = Category::select("id", "name", "description", "status")->orderBy('id', 'desc')->paginate(10);
+        return Inertia::render('Categories/Index', ["categories" => $categories]);
     }
 
     /**
@@ -25,7 +26,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Categories/Create');
     }
 
     /**
@@ -36,6 +37,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->validate([
+            "name" => "required|min:3",
+        ]);
+
+
+        Category::create([
+            'name' => $data['name'],
+            'description' => $request['description']
+        ]);
+        return redirect('/categories')->with('message', 'Categoria añadida correctamente');
     }
 
     /**
