@@ -5,8 +5,37 @@ import HeaderSection from "@/Components/HeaderSection";
 import { CheckCircle, XCircle, Pencil, Trash } from "@/icons";
 import { formatCurrency } from "@/utils/formatCurrency";
 import Paginate from "@/Components/Paginate";
+import Swal from "sweetalert2";
+import { Inertia } from "@inertiajs/inertia";
 
 const Index = ({ auth, errors, products }) => {
+    const handleClick = (id) => {
+        Swal.fire({
+            title: "¿Estás seguro de querer eliminarlo?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#14532D",
+            cancelButtonColor: "#7F1D1D",
+            confirmButtonText: "Sí,eliminar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Inertia.delete(`/products/${id}`);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                });
+
+                Toast.fire({
+                    icon: "success",
+                    title: "Producto borrado",
+                });
+            }
+        });
+    };
     return (
         <Authenticated auth={auth} errors={errors}>
             <Head title="Index" />
@@ -137,7 +166,9 @@ const Index = ({ auth, errors, products }) => {
 
                                             <button
                                                 className="bg-red-900 hover:bg-red-800 p-2 rounded-md font-semibold flex"
-                                                // onClick={() => handleClick(category.id)}
+                                                onClick={() =>
+                                                    handleClick(product.id)
+                                                }
                                             >
                                                 <Trash className="text-white" />
                                             </button>
