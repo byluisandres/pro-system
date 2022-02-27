@@ -84,7 +84,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::select('id', 'name')->where('status', '=', 1)->orderBy('id', 'desc')->get();
+        return Inertia::render('Products/Edit', ['product' => $product, 'categories' => $categories]);
     }
 
     /**
@@ -96,7 +97,30 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $data = $request->validate([
+            "name" => "required|min:3",
+            "sales_price" => "required",
+            "stock" => "required",
+            "category_id" => "required"
+        ]);
+
+        $product->name = $data['name'];
+        $product->description = $request['description'];
+        $product->code = $request['code'];
+        $product->sales_price = $data['sales_price'];
+        $product->stock = $data['stock'];
+        $product->status = $request['status'];
+        $product->category_id = $data['category_id'];
+
+        // Si se cambia de imágen
+        if ($request['image']) {
+            $route_image = $request['image']->store('upload_images', 'public');
+            //asignar
+            $product->imagen = env('APP_URL') . '/storage/' . $route_image;
+        }
+        $product->save();
+
+        return redirect('/products')->with('message', 'Producto actualizado');
     }
 
     /**
