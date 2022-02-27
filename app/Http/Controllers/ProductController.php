@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -15,7 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Products/Index');
+        $products = Product::orderBy('id', 'desc')->paginate(5);
+        $products->load("category");
+        return Inertia::render('Products/Index', ['products' => $products]);
     }
 
     /**
@@ -25,7 +28,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::select('id', 'name')->where('status', '=', 1)->orderBy('id', 'desc')->get();
+        return Inertia::render('Products/Create', ["categories" => $categories]);
     }
 
     /**
@@ -36,7 +40,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            "name" => "required|min:3",
+            "sales_price" => "required",
+            "stock" => "required",
+            "category_id" => "required"
+        ]);
+
+        if ($request['image']) {
+            $route_image = $request['image']->store('upload_images', 'public');
+        } else {
+            $route_image = "upload_images/no_image.png";
+        }
+
+        Product::create([
+            'image' => env('APP_URL') . '/storage/' . $route_image,
+            "name" => $data['name'],
+            "description" => $request["description"],
+            "code" => $request["code"],
+            "sales_price" => $data['sales_price'],
+            "stock" => $data['stock'],
+            "category_id" => $data['category_id'],
+        ]);
+        return redirect('/products')->with('message', 'Categoria añadida correctamente');
     }
 
     /**

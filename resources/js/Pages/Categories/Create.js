@@ -38,11 +38,7 @@ const Create = ({ auth, errors }) => {
                         <input
                             id="name"
                             name="name"
-                            className={`w-full ${
-                                errors.name
-                                    ? "border-red-500"
-                                    : "border-neutral-300"
-                            }  focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 rounded-md shadow-sm`}
+                            className="w-full border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 rounded-md shadow-sm"
                             type="text"
                             value={name}
                             onChange={handleChange}
