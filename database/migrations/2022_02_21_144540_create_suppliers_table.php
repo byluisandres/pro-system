@@ -18,7 +18,7 @@ class CreateSuppliersTable extends Migration
             $table->string('name')->unique();
             $table->string('type_document')->nullable();
             $table->string('num_document')->nullable();
-            $table->string('description')->nullable();
+            $table->string('direction')->nullable();
             $table->string('phone');
             $table->string('email');
             $table->timestamps();

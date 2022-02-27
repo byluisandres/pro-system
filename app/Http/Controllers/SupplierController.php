@@ -15,7 +15,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Suppliers/Index');
+        $suppliers = Supplier::select("*")->orderBy('id', 'desc')->paginate(10);
+        return Inertia::render('Suppliers/Index', ['suppliers' => $suppliers]);
     }
 
     /**
@@ -25,7 +26,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Suppliers/Create');
     }
 
     /**
@@ -36,7 +37,21 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|min:3',
+            'phone' => 'required',
+            'email' => 'required'
+        ]);
+        Supplier::create([
+            'name' => $data['name'],
+            'type_document' => $request['type_document'],
+            'num_document' => $request['num_document'],
+            'direction' => $request['direction'],
+            'phone' => $data['phone'],
+            'email' => $data['email'],
+        ]);
+
+        return redirect('/suppliers')->with('message', 'Proveedor añadido');
     }
 
     /**
