@@ -25,7 +25,6 @@ const Create = ({ auth, errors }) => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(supplier);
         Inertia.post("/suppliers", supplier);
     };
     return (

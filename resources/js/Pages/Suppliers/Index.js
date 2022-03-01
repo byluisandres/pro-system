@@ -4,8 +4,37 @@ import { Head, Link } from "@inertiajs/inertia-react";
 import HeaderSection from "@/Components/HeaderSection";
 import Paginate from "@/Components/Paginate";
 import { Pencil, Trash, Eye } from "@/icons";
+import Swal from "sweetalert2";
+import { Inertia } from "@inertiajs/inertia";
 
 const Index = ({ auth, errors, suppliers }) => {
+    const handleClick = (id) => {
+        Swal.fire({
+            title: "¿Estás seguro de querer eliminarlo?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#14532D",
+            cancelButtonColor: "#7F1D1D",
+            confirmButtonText: "Sí,eliminar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Inertia.delete(`/suppliers/${id}`);
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 1000,
+                    timerProgressBar: true,
+                });
+
+                Toast.fire({
+                    icon: "success",
+                    title: "Proveedor borrado correctamente",
+                });
+            }
+        });
+    };
     return (
         <Authenticated auth={auth} errors={errors}>
             <Head title="Index" />
@@ -47,14 +76,26 @@ const Index = ({ auth, errors, suppliers }) => {
                                     key={index}
                                 >
                                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                                        {supplier.name}
+                                        <Link
+                                            href={route("suppliers.show", {
+                                                supplier: supplier.id,
+                                            })}
+                                            className="hover:underline"
+                                        >
+                                            {supplier.name}
+                                        </Link>
                                     </td>
                                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
                                         {supplier.phone}
                                     </td>
 
                                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                                        {supplier.email}
+                                        <a
+                                            href={`mailto:${supplier.email}`}
+                                            className="hover:underline"
+                                        >
+                                            {supplier.email}
+                                        </a>
                                     </td>
 
                                     <td>

@@ -62,7 +62,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
+        return Inertia::render('Suppliers/Show', ['supplier' => $supplier]);
     }
 
     /**
@@ -73,7 +73,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        //
+        return Inertia::render('Suppliers/Edit', ['supplier' => $supplier]);
     }
 
     /**
@@ -85,7 +85,21 @@ class SupplierController extends Controller
      */
     public function update(Request $request, Supplier $supplier)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|min:3',
+            'phone' => 'required',
+            'email' => 'required'
+        ]);
+        $supplier->name = $data['name'];
+        $supplier->phone = $data['phone'];
+        $supplier->email = $data['email'];
+        $supplier->type_document = $request['type_document'];
+        $supplier->num_document = $request['num_document'];
+        $supplier->direction = $request['direction'];
+
+        $supplier->save();
+
+        return redirect('/suppliers')->with('message', 'Proveedor editado');
     }
 
     /**
@@ -96,6 +110,7 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        //
+        $supplier->delete();
+        return redirect('/suppliers')->with('message', 'Proveedor borrado');
     }
 }
