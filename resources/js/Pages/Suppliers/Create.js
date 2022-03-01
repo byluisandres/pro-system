@@ -10,12 +10,12 @@ const Create = ({ auth, errors }) => {
         name: "",
         type_document: "",
         num_document: "",
-        direction: "",
+        address: "",
         phone: "",
         email: "",
     });
 
-    const { name, type_document, num_document, direction, phone, email } =
+    const { name, type_document, num_document, address, phone, email } =
         supplier;
     const handleChange = (e) => {
         setSupplier({
@@ -79,13 +79,13 @@ const Create = ({ auth, errors }) => {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="direction">Dirección</label>
+                        <label htmlFor="address">Dirección</label>
                         <input
-                            name="direction"
-                            id="direction"
+                            name="address"
+                            id="address"
                             type="text"
                             className="w-full border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                            value={direction}
+                            value={address}
                             onChange={handleChange}
                         />
                     </div>

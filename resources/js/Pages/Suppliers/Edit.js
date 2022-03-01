@@ -10,12 +10,12 @@ const Edit = ({ auth, errors, supplier }) => {
         name: supplier.name,
         type_document: supplier.type_document,
         num_document: supplier.num_document,
-        direction: supplier.direction,
+        address: supplier.address,
         phone: supplier.phone,
         email: supplier.email,
     });
 
-    const { name, type_document, num_document, direction, phone, email } =
+    const { name, type_document, num_document, address, phone, email } =
         editSupplier;
     const handleChange = (e) => {
         setEditSupplier({
@@ -80,13 +80,13 @@ const Edit = ({ auth, errors, supplier }) => {
                     </div>
 
                     <div className="mb-3">
-                        <label htmlFor="direction">Dirección</label>
+                        <label htmlFor="address">Dirección</label>
                         <input
-                            name="direction"
-                            id="direction"
+                            name="address"
+                            id="address"
                             type="text"
                             className="w-full border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                            defaultValue={direction}
+                            defaultValue={address}
                             onChange={handleChange}
                         />
                     </div>

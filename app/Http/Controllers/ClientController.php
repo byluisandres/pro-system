@@ -16,7 +16,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Clients/Index');
+        $clients = Client::select("*")->orderBy('id', 'desc')->paginate(10);
+        return Inertia::render('Clients/Index', ['clients' => $clients]);
     }
 
     /**
@@ -26,7 +27,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Clients/Create');
     }
 
     /**
@@ -37,7 +38,21 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|min:3',
+            'phone' => 'required',
+            'email' => 'required'
+        ]);
+        Client::create([
+            'name' => $data['name'],
+            'type_document' => $request['type_document'],
+            'num_document' => $request['num_document'],
+            'address' => $request['address'],
+            'phone' => $data['phone'],
+            'email' => $data['email'],
+        ]);
+
+        return redirect('/clients')->with('message', 'Cliente añadido');
     }
 
     /**
@@ -48,7 +63,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        return Inertia::render('Clients/Show', ['client' => $client]);
     }
 
     /**
@@ -59,7 +74,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return Inertia::render('Clients/Edit', ['client' => $client]);
     }
 
     /**
@@ -71,7 +86,21 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|min:3',
+            'phone' => 'required',
+            'email' => 'required'
+        ]);
+        $client->name = $data['name'];
+        $client->phone = $data['phone'];
+        $client->email = $data['email'];
+        $client->type_document = $request['type_document'];
+        $client->num_document = $request['num_document'];
+        $client->address = $request['address'];
+
+        $client->save();
+
+        return redirect('/clients')->with('message', 'Cliente editado');
     }
 
     /**
@@ -82,6 +111,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return redirect('/clients')->with('message', 'Cliente borrado');
     }
 }
