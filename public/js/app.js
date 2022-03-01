@@ -4565,7 +4565,7 @@ var Show = function Show(_ref) {
       className: "mt-3 p-2",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
         className: "text-xl text-neutral-900",
-        children: "Historial de compras"
+        children: "Historial de ventas"
       })
     })]
   });

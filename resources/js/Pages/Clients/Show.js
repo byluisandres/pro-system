@@ -14,7 +14,7 @@ const Show = ({ auth, errors, client }) => {
             <CardInfo data={client} />
             <section className="mt-3 p-2">
                 <h2 className="text-xl text-neutral-900">
-                    Historial de compras
+                    Historial de ventas
                 </h2>
             </section>
         </Authenticated>
