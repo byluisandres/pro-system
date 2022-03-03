@@ -15,14 +15,12 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->string("type_identification");
             $table->string("num_sales");
-            $table->date('date_sales');
-            $table->decimal('tax');
+            $table->date('date_sales')->default(now());
             $table->decimal("total");
-            $table->boolean('status')->default(1);
-            $table->foreignId('id_client')->references('id')->on('clients');
-            $table->foreignId('id_user')->references('id')->on('users');
+            $table->enum('status', ['Pendiente', 'Cobrado']);
+            $table->foreignId('client_id')->references('id')->on('clients');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

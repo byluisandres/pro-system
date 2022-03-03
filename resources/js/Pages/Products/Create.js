@@ -167,7 +167,7 @@ const Create = ({ auth, errors, categories }) => {
                             <input
                                 id="sales_price"
                                 name="sales_price"
-                                type="text"
+                                type="number"
                                 className="w-full border-neutral-300 focus:border-neutral-300 focus:ring
                             focus:ring-neutral-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                 onChange={handleChange}
@@ -198,7 +198,10 @@ const Create = ({ auth, errors, categories }) => {
                                     />
                                 </label>
                             </div>
-                            <ImagePreview src={featuredImage} />
+                            <ImagePreview
+                                src={featuredImage}
+                                className="h-72"
+                            />
                         </div>
                     </div>
                     <ActionsButtons>Guardar</ActionsButtons>

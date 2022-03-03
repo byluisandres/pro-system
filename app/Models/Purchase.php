@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     use HasFactory;
-    protected $fillable = ['type_identification', 'num_purchase', 'date_purchase', 'tax', 'total', 'status', 'id_supplier', 'id_user'];
+    protected $fillable = ['num_purchase', 'date_purchase', 'total', 'status', 'supplier_id', 'user_id'];
 
     // El usuario que hace el registro
     public function user()

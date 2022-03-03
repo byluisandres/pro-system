@@ -7,6 +7,7 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import Paginate from "@/Components/Paginate";
 import Swal from "sweetalert2";
 import { Inertia } from "@inertiajs/inertia";
+import { toastMessage } from "@/utils/ToastMessage";
 
 const Index = ({ auth, errors, products }) => {
     const handleClick = (id) => {
@@ -21,18 +22,7 @@ const Index = ({ auth, errors, products }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Inertia.delete(`/products/${id}`);
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                });
-
-                Toast.fire({
-                    icon: "success",
-                    title: "Producto borrado",
-                });
+                toastMessage("top-end", "success", "Producto borrado");
             }
         });
     };
@@ -131,10 +121,7 @@ const Index = ({ auth, errors, products }) => {
                                         {product.code}
                                     </td>
                                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                                        {Intl.NumberFormat("es-ES", {
-                                            style: "currency",
-                                            currency: "EUR",
-                                        }).format(product.sales_price)}
+                                        {formatCurrency(product.sales_price)}
                                     </td>
                                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
                                         {product.status === 1 ? (

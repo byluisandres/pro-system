@@ -6,6 +6,8 @@ import Paginate from "@/Components/Paginate";
 import { Pencil, Trash, Eye } from "@/icons";
 import Swal from "sweetalert2";
 import { Inertia } from "@inertiajs/inertia";
+import { toastMessage } from "@/utils/ToastMessage";
+
 
 const Index = ({ auth, errors, suppliers }) => {
     const handleClick = (id) => {
@@ -20,18 +22,7 @@ const Index = ({ auth, errors, suppliers }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Inertia.delete(`/suppliers/${id}`);
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                });
-
-                Toast.fire({
-                    icon: "success",
-                    title: "Proveedor borrado correctamente",
-                });
+                toastMessage("top-end", "success", "Proveedor borrado");
             }
         });
     };

@@ -6,6 +6,7 @@ import Paginate from "@/Components/Paginate";
 import Swal from "sweetalert2";
 import { Inertia } from "@inertiajs/inertia";
 import HeaderSection from "@/Components/HeaderSection";
+import { toastMessage } from "@/utils/ToastMessage";
 
 const Index = ({ auth, errors, categories }) => {
     const handleClick = (id) => {
@@ -20,18 +21,7 @@ const Index = ({ auth, errors, categories }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Inertia.delete(`/categories/${id}`);
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                });
-
-                Toast.fire({
-                    icon: "success",
-                    title: "Categoría borrada correctamente",
-                });
+                toastMessage("top-end", "success", "Categoría borrada");
             }
         });
     };

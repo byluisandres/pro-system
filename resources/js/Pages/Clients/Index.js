@@ -6,6 +6,7 @@ import Paginate from "@/Components/Paginate";
 import { Pencil, Trash, Eye } from "@/icons";
 import Swal from "sweetalert2";
 import { Inertia } from "@inertiajs/inertia";
+import { toastMessage } from "@/utils/ToastMessage";
 
 const Index = ({ auth, errors, clients }) => {
     const handleClick = (id) => {
@@ -20,28 +21,14 @@ const Index = ({ auth, errors, clients }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Inertia.delete(`/clients/${id}`);
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 1000,
-                    timerProgressBar: true,
-                });
-
-                Toast.fire({
-                    icon: "success",
-                    title: "Cliente borrado correctamente",
-                });
+                toastMessage("top-end", "success", "Cliente borrado");
             }
         });
     };
     return (
         <Authenticated auth={auth} errors={errors}>
             <Head title="Index" />
-            <HeaderSection
-                href={"clients.create"}
-                btntext="Agregar Cliente"
-            >
+            <HeaderSection href={"clients.create"} btntext="Agregar Cliente">
                 Listado de Clientes
             </HeaderSection>
             <section className="mt-5 overflow-hidden">
