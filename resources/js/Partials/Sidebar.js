@@ -1,38 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import NavLink from "@/Components/NavLink";
 import { usePage } from "@inertiajs/inertia-react";
 import { menuItems } from "../routes";
+import SidebarContext from "@/modules/context/ui/SidebarContext";
 
 const Sidebar = () => {
     const { url } = usePage();
+    const sidebarContext = useContext(SidebarContext);
+    const { isOpen, openSidebarSuccess } = sidebarContext;
 
+    const handleClick = () => {
+        openSidebarSuccess(false);
+    };
     return (
         <div className="flex">
             {/* <!-- Backdrop --> */}
             <div
-                // :className="isOpen ? 'block' : 'hidden'"
-                // @click="isOpen = false"
-                className="
+                className={`
                 fixed
-                z-20
+                z-10
                 inset-0
                 bg-neutral-900
-                opacity-50
+                opacity-10
                 transition-opacity
                 lg:hidden
                 py-2
-                block
-            "
+                ${isOpen ? "block" : "hidden"}
+            `}
+                onClick={handleClick}
             ></div>
             {/* <!-- End Backdrop --> */}
-
-            <div
-                // :className="
-                //     isOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'
-                // "
-                className="
+            <aside
+                className={`
                 fixed
-                z-30
+                z-20
                 inset-y-0
                 left-0
                 w-64
@@ -42,9 +43,14 @@ const Sidebar = () => {
                 bg-neutral-900
                 overflow-y-auto
                 lg:translate-x-0
-                lg:static lg:inset-0
-                -translate-x-full ease-in
-            "
+                lg:static
+                lg:inset-0
+                ${
+                    isOpen
+                        ? "translate-x-0 ease-out"
+                        : "-translate-x-full ease-in"
+                }
+            `}
             >
                 <div className="flex items-center justify-center mt-5">
                     <div className="flex items-center">
@@ -73,7 +79,7 @@ const Sidebar = () => {
                         </ul>
                     </nav>
                 </div>
-            </div>
+            </aside>
         </div>
     );
 };

@@ -19,7 +19,9 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Purchases/Index');
+        $purchases = Purchase::all();
+        $purchases->load('supplier');
+        return Inertia::render('Purchases/Index', ['purchases' => $purchases]);
     }
 
     /**

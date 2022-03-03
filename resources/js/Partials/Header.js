@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Dropdown from "@/Components/Dropdown";
+import SidebarContext from "@/modules/context/ui/SidebarContext";
 
 const Header = ({ auth }) => {
+    const sidebarContext = useContext(SidebarContext);
+    const { openSidebarSuccess } = sidebarContext;
+    const handleClick = () => {
+        openSidebarSuccess(true);
+    };
     return (
         <header className="flex justify-between items-center py-4 px-6 bg-neutral-900">
             <div className="flex items-center">
                 <button
-                    // @click="isOpen = true"
+                    onClick={handleClick}
                     className="text-gray-500 focus:outline-none lg:hidden"
                 >
                     <svg
