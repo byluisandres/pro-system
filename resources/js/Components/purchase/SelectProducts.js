@@ -7,10 +7,11 @@ const SelectProducts = ({ products }) => {
     const [selectProducts, setSelectProducts] = useState([]);
     // Utilizar context
     const purchaseContext = useContext(PurchaseContext);
-    const { addProducts } = purchaseContext;
+    const { addProducts, updateTotal } = purchaseContext;
 
     useEffect(() => {
         addProducts(selectProducts);
+        updateTotal();
     }, [selectProducts]);
 
     const handleChange = (product) => {

@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->decimal('sales_price');
             $table->integer("stock");
             $table->boolean('status')->default(1);
-            $table->foreignId('category_id')->references('id')->on('categories');
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

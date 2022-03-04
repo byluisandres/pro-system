@@ -15,8 +15,8 @@ class CreateSalesDetailsTable extends Migration
     {
         Schema::create('sales_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sales_id')->references('id')->on('sales');
-            $table->foreignId('product_id')->references('id')->on('products');
+            $table->foreignId('sales_id')->references('id')->on('sales')->onDelete('cascade');
+            $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->integer('cantidad');
             $table->decimal('price');
             $table->timestamps();

@@ -19,7 +19,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::all();
+        $purchases = Purchase::query()->select("*")->paginate(10);
         $purchases->load('supplier');
         return Inertia::render('Purchases/Index', ['purchases' => $purchases]);
     }
@@ -31,8 +31,6 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        // $suppliers = Supplier::select('id as value', 'name as label')->get();
-        // $products = Product::select('id as value', DB::raw('concat(name," - ",stock , " stock") as label'))->get();
         $suppliers = Supplier::select('id', 'name')->get();
         $products = Product::select('id', 'name', 'stock', 'sales_price', 'image')->where('stock', '>', 0)->get();
         return Inertia::render('Purchases/Create', ['suppliers' => $suppliers, 'products' => $products]);
@@ -82,7 +80,13 @@ class PurchaseController extends Controller
      */
     public function show(Purchase $purchase)
     {
-        return Inertia::render('Purchases/Show', ['purchase', $purchase]);
+        $purchase->load('supplier');
+        $purchaseDetails = PurchaseDetail::query()->join('products', 'purchase_details.product_id', 'products.id')
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->select('products.image', 'products.name as product', 'products.sales_price', 'purchase_details.amount', 'categories.name as category')
+            ->where('purchase_details.purchase_id', $purchase->id)
+            ->get();
+        return Inertia::render('Purchases/Show', ['purchase' => $purchase, 'purchaseDetails' => $purchaseDetails]);
     }
 
     /**
@@ -116,5 +120,7 @@ class PurchaseController extends Controller
      */
     public function destroy(Purchase $purchase)
     {
+        $purchase->delete();
+        return redirect('/purchases')->with('message', 'Compra borrada');
     }
 }
