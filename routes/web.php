@@ -43,11 +43,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('purchases', PurchaseController::class);
     Route::put('/purchases/{id}/updatestate', [PurchaseController::class, 'updateState'])->name('purchases.updatestate');
+    Route::get('/purchases/pdf/{purchase}', [PurchaseController::class, 'generatepdf'])->name('purchase.pdf');
 
     Route::resource('suppliers', SupplierController::class);
 
     Route::resource('sales', SalesController::class);
     Route::put('/sales/{id}/updatestate', [SalesController::class, 'updateState'])->name('sales.updatestate');
+    Route::get('/sales/pdf/{sale}', [SalesController::class, 'generatepdf'])->name('sale.pdf');
 
     Route::resource('clients', ClientController::class);
 });

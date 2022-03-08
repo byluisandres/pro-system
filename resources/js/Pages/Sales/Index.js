@@ -170,12 +170,16 @@ const Index = ({ auth, errors, sales }) => {
                                                 <Pencil className="text-white" />
                                             </Link> */}
 
-                                            <button
+                                            <a
+                                                href={route("sale.pdf", [
+                                                    sale.id,
+                                                ])}
+                                                target="_blank"
                                                 className="bg-red-900 hover:bg-red-800 p-2 rounded-md font-semibold flex"
                                                 title="Obtener pdf"
                                             >
                                                 <File className="text-white" />
-                                            </button>
+                                            </a>
                                             <button
                                                 className="bg-red-900 hover:bg-red-800 p-2 rounded-md font-semibold flex"
                                                 onClick={() =>

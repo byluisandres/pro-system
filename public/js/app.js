@@ -4621,8 +4621,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_formatCurrency__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utils/formatCurrency */ "./resources/js/utils/formatCurrency.js");
 /* harmony import */ var _modules_context_purchases_PurchaseContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/modules/context/purchases/PurchaseContext */ "./resources/js/modules/context/purchases/PurchaseContext.js");
 /* harmony import */ var _ImagePreview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ImagePreview */ "./resources/js/Components/ImagePreview.js");
-/* harmony import */ var _utils_ToastMessage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/utils/ToastMessage */ "./resources/js/utils/ToastMessage.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
@@ -4640,7 +4639,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -4670,42 +4668,34 @@ var ProductSummary = function ProductSummary(_ref) {
   }, [amount]);
 
   var updateAmount = function updateAmount() {
-    if (amount <= 0) {
-      setAmount(1);
-      (0,_utils_ToastMessage__WEBPACK_IMPORTED_MODULE_4__.toastMessage)("top-end", "warning", "La cantidad tiene que ser mayor que cero");
-    } else if (amount > stock) {
-      setAmount(1);
-      (0,_utils_ToastMessage__WEBPACK_IMPORTED_MODULE_4__.toastMessage)("top-end", "warning", "El producto excede el stock disponible");
-    } else {
-      // crear un nuevo objeto con la cantidad
-      var newProduct = _objectSpread(_objectSpread({}, product), {}, {
-        amount: Number(amount)
-      });
+    // crear un nuevo objeto con la cantidad
+    var newProduct = _objectSpread(_objectSpread({}, product), {}, {
+      amount: Number(amount)
+    });
 
-      addAmountProduct(newProduct);
-    }
+    addAmountProduct(newProduct);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "md:flex md:justify-between md:items-center mb-3 border-b-2 border-b-neutral-100 py-2",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "md:w-2/4 mb-2 md:mb-0 mr-3",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
         className: "flex items-center gap-3",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ImagePreview__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ImagePreview__WEBPACK_IMPORTED_MODULE_3__["default"], {
           src: image,
           className: "h-12"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
             className: "text-sm",
             children: name
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
             className: "text-sm",
             children: (0,_utils_formatCurrency__WEBPACK_IMPORTED_MODULE_1__.formatCurrency)(sales_price)
           })]
         })]
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
       type: "number",
       placeholder: "Cantidad",
       className: "w-full border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 rounded-md shadow-sm",
@@ -4853,7 +4843,7 @@ var PurchaseHistory = function PurchaseHistory(_ref) {
                 children: detail.amount
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                 className: "py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ",
-                children: (0,_utils_formatCurrency__WEBPACK_IMPORTED_MODULE_1__.formatCurrency)(parseInt(detail.sales_price) * detail.amount)
+                children: (0,_utils_formatCurrency__WEBPACK_IMPORTED_MODULE_1__.formatCurrency)(parseFloat(detail.sales_price) * detail.amount)
               })]
             }, index);
           })
@@ -5381,7 +5371,7 @@ var SaleHistory = function SaleHistory(_ref) {
                 children: detail.amount
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                 className: "py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ",
-                children: (0,_utils_formatCurrency__WEBPACK_IMPORTED_MODULE_1__.formatCurrency)(parseInt(detail.sales_price) * detail.amount)
+                children: (0,_utils_formatCurrency__WEBPACK_IMPORTED_MODULE_1__.formatCurrency)(parseFloat(detail.sales_price) * detail.amount)
               })]
             }, index);
           })
@@ -8685,7 +8675,9 @@ var Index = function Index(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("td", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                   className: "flex gap-2",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
+                    href: route("purchase.pdf", [purchase.id]),
+                    target: "_blank",
                     className: "bg-red-900 hover:bg-red-800 p-2 rounded-md font-semibold flex",
                     title: "Obtener pdf",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_icons__WEBPACK_IMPORTED_MODULE_4__.File, {
@@ -9135,7 +9127,9 @@ var Index = function Index(_ref) {
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("td", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
                   className: "flex gap-2",
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
+                    href: route("sale.pdf", [sale.id]),
+                    target: "_blank",
                     className: "bg-red-900 hover:bg-red-800 p-2 rounded-md font-semibold flex",
                     title: "Obtener pdf",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_icons__WEBPACK_IMPORTED_MODULE_4__.File, {

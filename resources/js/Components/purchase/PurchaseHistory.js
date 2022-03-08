@@ -97,7 +97,7 @@ const PurchaseHistory = ({ purchase, purchaseDetails }) => {
                                 </td>
                                 <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
                                     {formatCurrency(
-                                        parseInt(detail.sales_price) *
+                                        parseFloat(detail.sales_price) *
                                             detail.amount
                                     )}
                                 </td>

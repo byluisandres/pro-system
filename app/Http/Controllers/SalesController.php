@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Sales;
 use App\Models\Client;
 use App\Models\Product;
+use Barryvdh\DomPDF\PDF;
 use App\Models\SalesDetail;
 use Illuminate\Http\Request;
 
@@ -138,5 +139,30 @@ class SalesController extends Controller
         $sale->status = $request['state'];
         $sale->save();
         return redirect('/sales')->with('message', 'Estado de la venta editada');
+    }
+
+
+    /**
+     *
+     */
+    public function generatepdf(Sales $sale)
+    {
+        $pdf = app('dompdf.wrapper');
+        $sale->load('client');
+        $saleDetails = SalesDetail::query()->join('products', 'sales_details.product_id', 'products.id')
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->select(
+                'products.image',
+                'products.name as product',
+                'products.sales_price',
+                'sales_details.amount',
+                'categories.name as category'
+            )
+            ->where('sales_details.sales_id', $sale->id)
+            ->get();
+        //dd($saleDetails);
+
+        $pdf = \PDF::loadView('pdf.sales', ['sale' => $sale, 'saleDetails' => $saleDetails]);
+        return $pdf->download('detalle_venta_' . $sale->num_sales . '.pdf');
     }
 }

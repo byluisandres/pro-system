@@ -867,6 +867,9 @@ select {
 .table-fixed {
   table-layout: fixed;
 }
+.border-collapse {
+  border-collapse: collapse;
+}
 .origin-top-left {
   transform-origin: top left;
 }

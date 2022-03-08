@@ -135,4 +135,22 @@ class PurchaseController extends Controller
         $purchase->save();
         return redirect('/purchases')->with('message', 'Estado de la compra editada');
     }
+
+    /**
+     *
+     */
+    public function generatepdf(Purchase $purchase)
+    {
+        $pdf = app('dompdf.wrapper');
+        $purchase->load('supplier');
+        $purchaseDetails = PurchaseDetail::query()->join('products', 'purchase_details.product_id', 'products.id')
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->select('products.image', 'products.name as product', 'products.sales_price', 'purchase_details.amount', 'categories.name as category')
+            ->where('purchase_details.purchase_id', $purchase->id)
+            ->get();
+        //dd($saleDetails);
+
+        $pdf = \PDF::loadView('pdf.purchases', ['purchase' => $purchase, 'purchaseDetails' => $purchaseDetails]);
+        return $pdf->download('detalle_compra_' . $purchase->num_purchase . '.pdf');
+    }
 }
