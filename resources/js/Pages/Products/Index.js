@@ -26,6 +26,13 @@ const Index = ({ auth, errors, products }) => {
             }
         });
     };
+
+    const handleClickState = (id, state) => {
+        let currentState = {
+            state: state,
+        };
+        Inertia.put(`/products/${id}/updatestate`, currentState);
+    };
     return (
         <Authenticated auth={auth} errors={errors}>
             <Head title="Index" />
@@ -60,12 +67,6 @@ const Index = ({ auth, errors, products }) => {
                                     className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-900 uppercase"
                                 >
                                     Stock
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-900 uppercase"
-                                >
-                                    Código
                                 </th>
                                 <th
                                     scope="col"
@@ -118,9 +119,6 @@ const Index = ({ auth, errors, products }) => {
                                         )}
                                     </td>
                                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                                        {product.code}
-                                    </td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
                                         {formatCurrency(product.sales_price)}
                                     </td>
                                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
@@ -128,6 +126,12 @@ const Index = ({ auth, errors, products }) => {
                                             <button
                                                 className="p-2 shadow-md no-underline rounded-full bg-green-900 text-white font-sans"
                                                 title="Activo"
+                                                onClick={() =>
+                                                    handleClickState(
+                                                        product.id,
+                                                        product.status
+                                                    )
+                                                }
                                             >
                                                 <CheckCircle className="text-white" />
                                             </button>
@@ -135,6 +139,12 @@ const Index = ({ auth, errors, products }) => {
                                             <button
                                                 className="p-2 shadow-md no-underline rounded-full bg-red-900 text-white font-sans"
                                                 title="Desactivo"
+                                                onClick={() =>
+                                                    handleClickState(
+                                                        product.id,
+                                                        product.status
+                                                    )
+                                                }
                                             >
                                                 <XCircle className="text-white" />
                                             </button>

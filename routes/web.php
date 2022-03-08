@@ -36,10 +36,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Categories
     Route::resource('categories', CategoryController::class);
+    Route::put('/categories/{id}/updatestate', [CategoryController::class, 'updateState'])->name('categories.updatestate');
 
     Route::resource('products', ProductController::class);
+    Route::put('/products/{id}/updatestate', [ProductController::class, 'updateState'])->name('products.updatestate');
 
     Route::resource('purchases', PurchaseController::class);
+    Route::put('/purchases/{id}/updatestate', [PurchaseController::class, 'updateState'])->name('purchases.updatestate');
 
     Route::resource('suppliers', SupplierController::class);
 

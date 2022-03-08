@@ -25,7 +25,12 @@ const Index = ({ auth, errors, categories }) => {
             }
         });
     };
-
+    const handleClickState = (id, state) => {
+        let currentState = {
+            state: state,
+        };
+        Inertia.put(`/categories/${id}/updatestate`, currentState);
+    };
     return (
         <Authenticated auth={auth} errors={errors}>
             <Head title="Index" />
@@ -51,12 +56,6 @@ const Index = ({ auth, errors, categories }) => {
                                     scope="col"
                                     className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-900 uppercase"
                                 >
-                                    Descripción
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-900 uppercase"
-                                >
                                     Estado
                                 </th>
                             </tr>
@@ -71,13 +70,16 @@ const Index = ({ auth, errors, categories }) => {
                                         {category.name}
                                     </td>
                                     <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                                        {category.description}
-                                    </td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
                                         {category.status === 1 ? (
                                             <button
                                                 className="p-2 shadow-md no-underline rounded-full bg-green-900 text-white font-sans"
                                                 title="Activo"
+                                                onClick={() =>
+                                                    handleClickState(
+                                                        category.id,
+                                                        category.status
+                                                    )
+                                                }
                                             >
                                                 <CheckCircle className="text-white" />
                                             </button>
@@ -85,6 +87,12 @@ const Index = ({ auth, errors, categories }) => {
                                             <button
                                                 className="p-2 shadow-md no-underline rounded-full bg-red-900 text-white font-sans"
                                                 title="Desactivo"
+                                                onClick={() =>
+                                                    handleClickState(
+                                                        category.id,
+                                                        category.status
+                                                    )
+                                                }
                                             >
                                                 <XCircle className="text-white" />
                                             </button>

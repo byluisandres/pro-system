@@ -1,13 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, Link } from "@inertiajs/inertia-react";
 import HeaderSection from "@/Components/HeaderSection";
 import { Pencil, Trash, Eye, File } from "@/icons";
 import Paginate from "@/Components/Paginate";
 import { formatCurrency } from "@/utils/formatCurrency";
+import Swal from "sweetalert2";
+import { Inertia } from "@inertiajs/inertia";
+import { toastMessage } from "@/utils/ToastMessage";
 
 const Index = ({ auth, errors, purchases }) => {
-    const handleClick = () => {};
+    const handleClick = (id) => {
+        Swal.fire({
+            title: "¿Estás seguro de querer eliminarlo?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#14532D",
+            cancelButtonColor: "#7F1D1D",
+            confirmButtonText: "Sí,eliminar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Inertia.delete(`/purchases/${id}`);
+                toastMessage("top-end", "success", "Compra borrada");
+            }
+        });
+    };
+
+    const handleChange = (state, id) => {
+        let currentState = {
+            state: state,
+        };
+        Inertia.put(`/purchases/${id}/updatestate`, currentState);
+    };
 
     return (
         <Authenticated auth={auth} errors={errors}>
@@ -19,63 +44,124 @@ const Index = ({ auth, errors, purchases }) => {
                 {purchases.data.length > 0 ? (
                     <table className="min-w-full table-fixed ">
                         <thead className="">
-                            <tr className="border-b border-gray-700">
+                            <tr className="border-b border-neutral-700">
                                 <th
                                     scope="col"
-                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-900 uppercase"
+                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-neutral-900 uppercase"
+                                >
+                                    Ver detalle
+                                </th>
+                                <th
+                                    scope="col"
+                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-neutral-900 uppercase"
                                 >
                                     Número de compra
                                 </th>
                                 <th
                                     scope="col"
-                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-900 uppercase"
+                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-neutral-900 uppercase"
                                 >
                                     Fecha de compra
                                 </th>
                                 <th
                                     scope="col"
-                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-900 uppercase"
+                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-neutral-900 uppercase"
                                 >
                                     Total
                                 </th>
                                 <th
                                     scope="col"
-                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-900 uppercase"
+                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-neutral-900 uppercase"
                                 >
-                                    Status
+                                    Proveedor
                                 </th>
                                 <th
                                     scope="col"
-                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-900 uppercase"
+                                    className="py-3 px-6 text-xs font-medium tracking-wider text-left text-neutral-900 uppercase"
                                 >
-                                    Proveedor
+                                    ESTADO
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             {purchases.data.map((purchase, index) => (
                                 <tr
-                                    className="border-b border-gray-200"
+                                    className="border-b border-neutral-200"
                                     key={index}
                                 >
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                                        {purchase.num_purchase}
+                                    <td className="py-4 px-6 text-sm font-medium text-neutral-900 whitespace-nowrap ">
+                                        <Link
+                                            href={route("purchases.show", {
+                                                purchase: purchase.id,
+                                            })}
+                                            className="bg-yellow-900
+                                            hover:bg-yellow-800 p-2 rounded-md font-semibold
+                                            flex justify-between items-center w-10 h-10"
+                                            title="Ver"
+                                        >
+                                            <Eye className="text-white" />
+                                        </Link>
                                     </td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
+                                    <td className="py-4 px-6 text-sm font-medium text-neutral-900 whitespace-nowrap ">
+                                        <Link
+                                            href={route("purchases.show", {
+                                                purchase: purchase.id,
+                                            })}
+                                            className="hover:underline"
+                                            title="Ver"
+                                        >
+                                            <span
+                                                className={`before:block before:absolute before:-inset-1 before:-skew-y-2
+                                            before:${
+                                                purchase.status === "PENDIENTE"
+                                                    ? "bg-yellow-500"
+                                                    : purchase.status ===
+                                                      "COMPLETADO"
+                                                    ? "bg-green-500"
+                                                    : "bg-red-500"
+                                            } relative inline-block`}
+                                            >
+                                                <span className="relative text-white">
+                                                    {purchase.num_purchase}
+                                                </span>
+                                            </span>
+                                        </Link>
+                                    </td>
+                                    <td className="py-4 px-6 text-sm font-medium text-neutral-900 whitespace-nowrap ">
                                         {purchase.date_purchase}
                                     </td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
+                                    <td className="py-4 px-6 text-sm font-medium text-neutral-900 whitespace-nowrap ">
                                         {formatCurrency(purchase.total)}
                                     </td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
-                                        {purchase.status}
-                                    </td>
-                                    <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap ">
+                                    <td className="py-4 px-6 text-sm font-medium text-neutral-900 whitespace-nowrap ">
                                         {purchase.supplier.name}
+                                    </td>
+                                    <td className="py-4 px-6 text-sm font-medium text-neutral-900 whitespace-nowrap ">
+                                        <select
+                                            defaultValue={purchase.status}
+                                            className="appearance-none block w-full px-3 py-1.5 font-normal text-neutral-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-neutral-300 rounded transition
+      ease-in-out m-0 focus:text-neutral-700 focus:bg-white focus:border-neutral-600 focus:outline-none"
+                                            onChange={(e) =>
+                                                handleChange(
+                                                    e.target.value,
+                                                    purchase.id
+                                                )
+                                            }
+                                        >
+                                            <option value="COMPLETADO">
+                                                COMPLETADO
+                                            </option>
+                                            <option value="PENDIENTE">
+                                                PENDIENTE
+                                            </option>
+                                            <option value="CANCELADO">
+                                                CANCELADO
+                                            </option>
+                                        </select>
                                     </td>
                                     <td>
                                         <div className="flex gap-2">
-                                            <Link
+                                            {/* <Link
                                                 href={route("purchases.edit", {
                                                     purchase: purchase.id,
                                                 })}
@@ -83,16 +169,8 @@ const Index = ({ auth, errors, purchases }) => {
                                                 title="Editar"
                                             >
                                                 <Pencil className="text-white" />
-                                            </Link>
-                                            <Link
-                                                href={route("purchases.show", {
-                                                    purchase: purchase.id,
-                                                })}
-                                                className="bg-yellow-900 hover:bg-yellow-800 p-2 rounded-md font-semibold flex"
-                                                title="Ver"
-                                            >
-                                                <Eye className="text-white" />
-                                            </Link>
+                                            </Link> */}
+
                                             <button
                                                 className="bg-red-900 hover:bg-red-800 p-2 rounded-md font-semibold flex"
                                                 title="Obtener pdf"

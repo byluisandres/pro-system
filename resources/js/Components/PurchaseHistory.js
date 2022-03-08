@@ -19,9 +19,12 @@ const PurchaseHistory = ({ purchase, purchaseDetails }) => {
             </div>
 
             <div className={`${show ? "block" : "hidden"} `}>
-                <div>
+                <div className="mb-3">
                     <p className="text-neutral-700">
                         Fecha de compra: <span>{purchase.date_purchase}</span>
+                    </p>
+                    <p className="text-neutral-700">
+                        Estado: <span>{purchase.status}</span>
                     </p>
                 </div>
                 <table className="min-w-full table-fixed ">

@@ -18,7 +18,7 @@ class CreateSalesTable extends Migration
             $table->string("num_sales");
             $table->date('date_sales')->default(now());
             $table->decimal("total");
-            $table->enum('status', ['Pendiente', 'Cobrado']);
+            $table->enum('status', ['COMPLETADO', 'PENDIENTE', 'CANCELADO']);
             $table->foreignId('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();

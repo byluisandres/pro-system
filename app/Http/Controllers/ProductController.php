@@ -134,4 +134,15 @@ class ProductController extends Controller
         $product->delete();
         return redirect('/products')->with('message', 'Producto borrado correctamente');
     }
+
+    /**
+     *
+     */
+    public function updateState(Request $request, $id)
+    {
+        $product = Product::find($id);
+        $product->status = $request['state'] === 1 ? 0 : 1;
+        $product->save();
+        return redirect('/products')->with('message', 'Estado del producto editado');
+    }
 }

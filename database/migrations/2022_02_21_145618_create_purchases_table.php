@@ -18,7 +18,7 @@ class CreatePurchasesTable extends Migration
             $table->string("num_purchase");
             $table->date('date_purchase')->default(now());
             $table->decimal("total");
-            $table->enum('status', ['Pendiente', 'Cobrado']);
+            $table->enum('status', ['COMPLETADO', 'PENDIENTE','CANCELADO']);
             $table->foreignId('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users');
             $table->timestamps();

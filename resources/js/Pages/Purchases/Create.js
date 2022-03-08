@@ -32,7 +32,6 @@ const Create = ({ auth, errors, suppliers, products }) => {
         purchase.products = productsContext;
         purchase.total = total;
         Inertia.post("/purchases", purchase);
-        ///console.log(purchase);
     };
     return (
         <Authenticated auth={auth} errors={errors}>

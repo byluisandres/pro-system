@@ -9,6 +9,7 @@ use App\Models\PurchaseDetail;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use JetBrains\PhpStorm\Pure;
 
 class PurchaseController extends Controller
 {
@@ -19,7 +20,7 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        $purchases = Purchase::query()->select("*")->paginate(10);
+        $purchases = Purchase::query()->select("*")->orderBy('id', 'desc')->paginate(10);
         $purchases->load('supplier');
         return Inertia::render('Purchases/Index', ['purchases' => $purchases]);
     }
@@ -122,5 +123,16 @@ class PurchaseController extends Controller
     {
         $purchase->delete();
         return redirect('/purchases')->with('message', 'Compra borrada');
+    }
+
+    /**
+     *
+     */
+    public function updateState(Request $request, $id)
+    {
+        $purchase = Purchase::find($id);
+        $purchase->status = $request['state'];
+        $purchase->save();
+        return redirect('/purchases')->with('message', 'Estado de la compra editada');
     }
 }

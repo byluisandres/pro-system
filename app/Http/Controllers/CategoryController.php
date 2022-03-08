@@ -104,4 +104,15 @@ class CategoryController extends Controller
         $category->delete();
         return redirect('/categories')->with('message', 'Categoría borrada correctamente');
     }
+
+    /**
+     *
+     */
+    public function updateState(Request $request, $id)
+    {
+        $category = Category::find($id);
+        $category->status = $request['state'] === 1 ? 0 : 1;
+        $category->save();
+        return redirect('/categories')->with('message', 'Estado de la categoría editado');
+    }
 }
