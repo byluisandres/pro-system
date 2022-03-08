@@ -123,8 +123,20 @@ class SalesController extends Controller
      * @param  \App\Models\Sales  $sales
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sales $sales)
+    public function destroy(Sales $sale)
     {
-        //
+        $sale->delete();
+        return redirect('/sales')->with('message', 'Venta borrada');
+    }
+
+    /**
+     *
+     */
+    public function updateState(Request $request, $id)
+    {
+        $sale = Sales::find($id);
+        $sale->status = $request['state'];
+        $sale->save();
+        return redirect('/sales')->with('message', 'Estado de la venta editada');
     }
 }

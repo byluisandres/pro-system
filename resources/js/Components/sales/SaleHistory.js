@@ -11,7 +11,7 @@ const SaleHistory = ({ sale, saleDetails }) => {
         <article className="border rounded-md mb-3">
             <div className="flex justify-between items-center bg-neutral-100 py-2">
                 <h2>
-                    Número de compra: <span>{sale.num_sale}</span>
+                    Número de compra: <span>{sale.num_sales}</span>
                 </h2>
                 <button onClick={handleClick}>
                     {show ? <ChevronDown /> : <ChevronUp />}
@@ -21,7 +21,7 @@ const SaleHistory = ({ sale, saleDetails }) => {
             <div className={`${show ? "block" : "hidden"} `}>
                 <div className="mb-3">
                     <p className="text-neutral-700">
-                        Fecha de compra: <span>{sale.date_sale}</span>
+                        Fecha de compra: <span>{sale.date_sales}</span>
                     </p>
                     <p className="text-neutral-700">
                         Estado: <span>{sale.status}</span>

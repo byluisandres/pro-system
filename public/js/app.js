@@ -5301,7 +5301,7 @@ var SaleHistory = function SaleHistory(_ref) {
       className: "flex justify-between items-center bg-neutral-100 py-2",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h2", {
         children: ["N\xFAmero de compra: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-          children: sale.num_sale
+          children: sale.num_sales
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         onClick: handleClick,
@@ -5314,7 +5314,7 @@ var SaleHistory = function SaleHistory(_ref) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
           className: "text-neutral-700",
           children: ["Fecha de compra: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
-            children: sale.date_sale
+            children: sale.date_sales
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
           className: "text-neutral-700",
@@ -9016,8 +9016,8 @@ var Index = function Index(_ref) {
       cancelButtonText: "Cancelar"
     }).then(function (result) {
       if (result.isConfirmed) {
-        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_7__.Inertia["delete"]("/purchases/".concat(id));
-        (0,_utils_ToastMessage__WEBPACK_IMPORTED_MODULE_8__.toastMessage)("top-end", "success", "Compra borrada");
+        _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_7__.Inertia["delete"]("/sales/".concat(id));
+        (0,_utils_ToastMessage__WEBPACK_IMPORTED_MODULE_8__.toastMessage)("top-end", "success", "Venta borrada");
       }
     });
   };
@@ -9026,7 +9026,7 @@ var Index = function Index(_ref) {
     var currentState = {
       state: state
     };
-    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_7__.Inertia.put("/purchases/".concat(id, "/updatestate"), currentState);
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_7__.Inertia.put("/sales/".concat(id, "/updatestate"), currentState);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_Layouts_Authenticated__WEBPACK_IMPORTED_MODULE_1__["default"], {

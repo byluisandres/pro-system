@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('suppliers', SupplierController::class);
 
     Route::resource('sales', SalesController::class);
+    Route::put('/sales/{id}/updatestate', [SalesController::class, 'updateState'])->name('sales.updatestate');
 
     Route::resource('clients', ClientController::class);
 });

@@ -21,8 +21,8 @@ const Index = ({ auth, errors, sales }) => {
             cancelButtonText: "Cancelar",
         }).then((result) => {
             if (result.isConfirmed) {
-                Inertia.delete(`/purchases/${id}`);
-                toastMessage("top-end", "success", "Compra borrada");
+                Inertia.delete(`/sales/${id}`);
+                toastMessage("top-end", "success", "Venta borrada");
             }
         });
     };
@@ -31,7 +31,7 @@ const Index = ({ auth, errors, sales }) => {
         let currentState = {
             state: state,
         };
-        Inertia.put(`/purchases/${id}/updatestate`, currentState);
+        Inertia.put(`/sales/${id}/updatestate`, currentState);
     };
     return (
         <Authenticated auth={auth} errors={errors}>
