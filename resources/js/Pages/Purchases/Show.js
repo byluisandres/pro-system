@@ -3,7 +3,7 @@ import Authenticated from "@/Layouts/Authenticated";
 import { Head } from "@inertiajs/inertia-react";
 import Breadcrumb from "@/Components/Breadcrumb";
 import CardInfo from "@/Components/CardInfo";
-import PurchaseHistory from "@/Components/PurchaseHistory";
+import PurchaseHistory from "@/Components/purchase/PurchaseHistory";
 
 const Show = ({ auth, errors, purchase, purchaseDetails }) => {
     return (

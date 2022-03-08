@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head } from "@inertiajs/inertia-react";
 import Breadcrumb from "@/Components/Breadcrumb";
 import ActionsButtons from "@/Components/ActionsButtons";
 import Content from "@/Container/Content";
+import SelectClients from "@/Components/sales/SelectClients";
+import SelectProducts from "@/Components/sales/SelectProducts";
+import SaleContext from "@/modules/context/sales/SaleContext";
+import { Inertia } from "@inertiajs/inertia";
+import Total from "@/Components/sales/Total";
+import SalesSumary from "@/Components/sales/SalesSumary";
 
-const Create = ({ auth, errors, suppliers }) => {
+const Create = ({ auth, errors, clients, products }) => {
+    const [sale, setSale] = useState({
+        num_sales: "",
+    });
+    const { num_sales } = sale;
+
+    // Context
+    const saleContext = useContext(SaleContext);
+    const { client, products: productsContext, total } = saleContext;
+
+    const handleChange = (e) => {
+        setSale({
+            ...sale,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        sale.client_id = client.id;
+        sale.products = productsContext;
+        sale.total = total;
+        Inertia.post("/sales", sale);
+    };
     return (
         <Authenticated auth={auth} errors={errors}>
             <Head title="Create" />
@@ -13,39 +42,43 @@ const Create = ({ auth, errors, suppliers }) => {
             <section>
                 <Breadcrumb />
             </section>
+
             <section className="mt-4">
-                <form className="" method="POST">
+                <form method="POST" onSubmit={handleSubmit}>
                     <div className="mb-3">
-                        <Content>1.- Asigna un cliente al pedido</Content>
-                        <select className="form-select">
-                            <option>ss</option>
-                        </select>
+                        <Content>1.- Número de venta</Content>
+                        <input
+                            name="num_sales"
+                            id="num_sales"
+                            type="text"
+                            placeholder="Ejemplo: 0001"
+                            className="w-full border-neutral-300 focus:border-neutral-300 focus:ring focus:ring-neutral-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                            onChange={handleChange}
+                            value={num_sales}
+                        />
+                        {errors.num_sales ? (
+                            <p className="text-red-500">{errors.num_sales}</p>
+                        ) : null}
                     </div>
                     <div className="mb-3">
-                        <Content>2.- Selecciona o busca los productos</Content>
-                        <select className="form-select">
-                            <option>ss</option>
-                        </select>
+                        <SelectClients clients={clients} />
+                        {errors.client_id ? (
+                            <p className="text-red-500">{errors.client_id}</p>
+                        ) : null}
                     </div>
                     <div className="mb-3">
-                        <Content>
-                            3.- Ajusta las cantidades del producto
-                        </Content>
-                        <div className="grid grid-col-2 gap-4">
-                            <div>
-                                <span>nombre producto</span>
-                            </div>
-                        </div>
+                        <SelectProducts products={products} />
+                        {errors.products ? (
+                            <p className="text-red-500">{errors.products}</p>
+                        ) : null}
                     </div>
                     <div className="mb-3">
-                        <div className="flex justify-between items-center bg-gray-50 p-2">
-                            <span className="font-bold text-lg">Total</span>
-                            <p className="font-bold text-lg">
-                                2000<span>€</span>
-                            </p>
-                        </div>
+                        <SalesSumary />
                     </div>
-                    <ActionsButtons>Registrar Compra</ActionsButtons>
+                    <div className="mb-3">
+                        <Total />
+                    </div>
+                    <ActionsButtons>Registrar Venta</ActionsButtons>
                 </form>
             </section>
         </Authenticated>

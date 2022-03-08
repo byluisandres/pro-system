@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, Link } from "@inertiajs/inertia-react";
 import HeaderSection from "@/Components/HeaderSection";

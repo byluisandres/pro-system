@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Sales;
+use App\Models\Client;
+use App\Models\Product;
+use App\Models\SalesDetail;
 use Illuminate\Http\Request;
 
 class SalesController extends Controller
@@ -15,7 +18,9 @@ class SalesController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Sales/Index');
+        $sales = Sales::query()->select("*")->orderBy('id', 'desc')->paginate(10);
+        $sales->load('client');
+        return Inertia::render('Sales/Index', ['sales' => $sales]);
     }
 
     /**
@@ -25,7 +30,9 @@ class SalesController extends Controller
      */
     public function create()
     {
-        //
+        $clients = Client::select('id', 'name')->get();
+        $products = Product::select('id', 'name', 'stock', 'sales_price', 'image')->where('stock', '>', 0)->get();
+        return Inertia::render('Sales/Create', ['clients' => $clients, 'products' => $products]);
     }
 
     /**
@@ -36,7 +43,32 @@ class SalesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'num_sales' => 'required',
+            'total' => 'required',
+            'client_id' => 'required',
+            'products' => 'required'
+        ]);
+
+        $sale = Sales::create([
+            'num_sales' => $data['num_sales'],
+            'total' => $data['total'],
+            'status' => 'PENDIENTE',
+            'client_id' => $data['client_id'],
+            'user_id' => auth()->user()->id
+        ]);
+        $products = $data['products'];
+
+        foreach ($products as $product) {
+            $salesDetail = new SalesDetail();
+            $salesDetail->sales_id = $sale->id; //id de la compra
+            $salesDetail->product_id = $product['id'];
+            $salesDetail->amount  = $product['amount'];
+            $salesDetail->sales_price = $product['sales_price'];
+            $salesDetail->save();
+        }
+
+        return redirect('/sales')->with('message', 'Venta añadida');
     }
 
     /**
@@ -45,9 +77,21 @@ class SalesController extends Controller
      * @param  \App\Models\Sales  $sales
      * @return \Illuminate\Http\Response
      */
-    public function show(Sales $sales)
+    public function show(Sales $sale)
     {
-        //
+        $sale->load('client');
+        $saleDetails = SalesDetail::query()->join('products', 'sales_details.product_id', 'products.id')
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->select(
+                'products.image',
+                'products.name as product',
+                'products.sales_price',
+                'sales_details.amount',
+                'categories.name as category'
+            )
+            ->where('sales_details.sales_id', $sale->id)
+            ->get();
+        return Inertia::render('Sales/Show', ['sale' => $sale, 'saleDetails' => $saleDetails]);
     }
 
     /**

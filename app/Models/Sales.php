@@ -9,13 +9,23 @@ class Sales extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "type_identification",
         "num_sales",
         'date_sales',
-        'tax',
         "total",
         'status',
-        'id_client',
-        'id_user',
+        'client_id',
+        'user_id',
     ];
+    // El usuario que hace el registro
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+    // El provedor que hace la compra
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 }

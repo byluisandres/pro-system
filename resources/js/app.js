@@ -6,6 +6,7 @@ import { createInertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
 import PurchaseState from "./modules/context/purchases/PurchaseState";
 import SidebarState from "./modules/context/ui/SidebarState";
+import SaleState from "./modules/context/sales/SaleState";
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
@@ -15,11 +16,13 @@ createInertiaApp({
     resolve: (name) => require(`./Pages/${name}`),
     setup({ el, App, props }) {
         return render(
-            <PurchaseState>
-                <SidebarState>
-                    <App {...props} />
-                </SidebarState>
-            </PurchaseState>,
+            <SidebarState>
+                <PurchaseState>
+                    <SaleState>
+                        <App {...props} />
+                    </SaleState>
+                </PurchaseState>
+            </SidebarState>,
             el
         );
     },
