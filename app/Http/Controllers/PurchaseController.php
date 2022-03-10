@@ -70,7 +70,7 @@ class PurchaseController extends Controller
             $purchaseDetail->save();
         }
 
-        return redirect('/purchases')->with('message', 'Compra añadida');
+        return redirect('/purchases')->with('message', 'Compra editada');
     }
 
     /**

@@ -2,14 +2,14 @@ import React from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, Link } from "@inertiajs/inertia-react";
 import HeaderSection from "@/Components/HeaderSection";
-import { Pencil, Trash, Eye, File } from "@/icons";
+import { Pencil, Trash, Eye, Pdf } from "@/icons";
 import Paginate from "@/Components/Paginate";
 import { formatCurrency } from "@/utils/formatCurrency";
 import Swal from "sweetalert2";
 import { Inertia } from "@inertiajs/inertia";
-import { toastMessage } from "@/utils/ToastMessage";
 
 const Index = ({ auth, errors, purchases }) => {
+    console.log(purchases);
     const handleClick = (id) => {
         Swal.fire({
             title: "¿Estás seguro de querer eliminarlo?",
@@ -22,7 +22,6 @@ const Index = ({ auth, errors, purchases }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Inertia.delete(`/purchases/${id}`);
-                toastMessage("top-end", "success", "Compra borrada");
             }
         });
     };
@@ -90,17 +89,28 @@ const Index = ({ auth, errors, purchases }) => {
                                     key={index}
                                 >
                                     <td className="py-4 px-6 text-sm font-medium text-neutral-900 whitespace-nowrap ">
-                                        <Link
-                                            href={route("purchases.show", {
-                                                purchase: purchase.id,
-                                            })}
-                                            className="bg-yellow-900
-                                            hover:bg-yellow-800 p-2 rounded-md font-semibold
-                                            flex justify-between items-center w-10 h-10"
-                                            title="Ver"
-                                        >
-                                            <Eye className="text-white" />
-                                        </Link>
+                                        <div className="flex items-center gap-4">
+                                            <Link
+                                                href={route("purchases.show", {
+                                                    purchase: purchase.id,
+                                                })}
+                                                className="bg-yellow-900
+                                            hover:bg-yellow-800 p-2 rounded-md font-semibold flex"
+                                                title="Ver"
+                                            >
+                                                <Eye className="text-white" />
+                                            </Link>
+                                            <a
+                                                href={route("purchase.pdf", [
+                                                    purchase.id,
+                                                ])}
+                                                target="_blank"
+                                                className="hover:shadow-md border-2 border-red-900 p-2 rounded-md font-semibold flex"
+                                                title="Obtener pdf"
+                                            >
+                                                <Pdf className="text-white" />
+                                            </a>
+                                        </div>
                                     </td>
                                     <td className="py-4 px-6 text-sm font-medium text-neutral-900 whitespace-nowrap ">
                                         <Link
@@ -111,15 +121,15 @@ const Index = ({ auth, errors, purchases }) => {
                                             title="Ver"
                                         >
                                             <span
-                                                className={`before:block before:absolute before:-inset-1 before:-skew-y-2
-                                            before:${
+                                                className={`p-1
+                                            ${
                                                 purchase.status === "PENDIENTE"
                                                     ? "bg-yellow-500"
                                                     : purchase.status ===
                                                       "COMPLETADO"
                                                     ? "bg-green-500"
                                                     : "bg-red-500"
-                                            } relative inline-block`}
+                                            }`}
                                             >
                                                 <span className="relative text-white">
                                                     {purchase.num_purchase}
@@ -171,16 +181,6 @@ const Index = ({ auth, errors, purchases }) => {
                                                 <Pencil className="text-white" />
                                             </Link> */}
 
-                                            <a
-                                                href={route("purchase.pdf", [
-                                                    purchase.id,
-                                                ])}
-                                                target="_blank"
-                                                className="bg-red-900 hover:bg-red-800 p-2 rounded-md font-semibold flex"
-                                                title="Obtener pdf"
-                                            >
-                                                <File className="text-white" />
-                                            </a>
                                             <button
                                                 className="bg-red-900 hover:bg-red-800 p-2 rounded-md font-semibold flex"
                                                 onClick={() =>

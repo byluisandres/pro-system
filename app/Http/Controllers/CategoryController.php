@@ -46,7 +46,7 @@ class CategoryController extends Controller
             'name' => $data['name'],
             'description' => $request['description']
         ]);
-        return redirect('/categories')->with('message', 'Categoria añadida correctamente');
+        return redirect('/categories')->with('message', 'Categoria añadida');
     }
 
     /**
@@ -90,7 +90,7 @@ class CategoryController extends Controller
         $category->status = $request['status'];
         $category->save();
 
-        return redirect('/categories')->with('message', 'Categoria editada correctamente');
+        return redirect('/categories')->with('message', 'Categoria editada');
     }
 
     /**
@@ -102,7 +102,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect('/categories')->with('message', 'Categoría borrada correctamente');
+        return redirect('/categories')->with('message', 'Categoría borrada');
     }
 
     /**

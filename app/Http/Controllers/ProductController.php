@@ -62,7 +62,7 @@ class ProductController extends Controller
             "stock" => $data['stock'],
             "category_id" => $data['category_id'],
         ]);
-        return redirect('/products')->with('message', 'Producto añadido correctamente');
+        return redirect('/products')->with('message', 'Producto añadido');
     }
 
     /**
@@ -132,7 +132,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect('/products')->with('message', 'Producto borrado correctamente');
+        return redirect('/products')->with('message', 'Producto borrado');
     }
 
     /**

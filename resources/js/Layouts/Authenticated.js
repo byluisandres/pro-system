@@ -1,9 +1,15 @@
 import React from "react";
 import Header from "@/partials/Header";
 import Sidebar from "@/partials/Sidebar";
+import { usePage } from "@inertiajs/inertia-react";
+import FlashMessage from "@/Components/FlashMessage";
+
 const Authenticated = ({ auth, children }) => {
+    const { flash } = usePage().props;
+
     return (
         <>
+            {flash.message && <FlashMessage message={flash.message} />}
             <div className="flex h-screen font-roboto">
                 <Sidebar />
                 <div className="flex-1 flex flex-col overflow-hidden">

@@ -7,7 +7,6 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import Paginate from "@/Components/Paginate";
 import Swal from "sweetalert2";
 import { Inertia } from "@inertiajs/inertia";
-import { toastMessage } from "@/utils/ToastMessage";
 
 const Index = ({ auth, errors, products }) => {
     const handleClick = (id) => {
@@ -22,7 +21,6 @@ const Index = ({ auth, errors, products }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Inertia.delete(`/products/${id}`);
-                toastMessage("top-end", "success", "Producto borrado");
             }
         });
     };

@@ -160,7 +160,6 @@ class SalesController extends Controller
             )
             ->where('sales_details.sales_id', $sale->id)
             ->get();
-        //dd($saleDetails);
 
         $pdf = \PDF::loadView('pdf.sales', ['sale' => $sale, 'saleDetails' => $saleDetails]);
         return $pdf->download('detalle_venta_' . $sale->num_sales . '.pdf');

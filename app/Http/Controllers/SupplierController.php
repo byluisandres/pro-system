@@ -65,24 +65,7 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        // $purchases = Purchase::query()
-        //     ->join('purchase_details', 'purchases.id', 'purchase_details.purchase_id')
-        //     ->join('products', 'purchase_details.product_id', 'products.id')
-        //     ->join('categories', 'products.category_id', 'categories.id')
-        //     ->select(
-        //         "num_purchase",
-        //         "date_purchase",
-        //         "total",
-        //         "amount",
-        //         "products.sales_price",
-        //         "products.name AS Product",
-        //         "categories.name AS Category",
-        //         "image"
-        //     )
-        //     ->where('supplier_id', $supplier->id);
-
         $purchases = Purchase::query()->where('supplier_id', $supplier->id)->get();
-        // var_dump(count($purchases));
         if (count($purchases) > 0) {
             foreach ($purchases as  $purchase) {
                 $purchaseDetails = PurchaseDetail::query()->join('products', 'purchase_details.product_id', 'products.id')
@@ -94,7 +77,10 @@ class SupplierController extends Controller
         } else {
             $purchaseDetails = [];
         }
-        return Inertia::render('Suppliers/Show', ['supplier' => $supplier, 'purchases' => $purchases, 'purchaseDetails' => $purchaseDetails]);
+        return Inertia::render(
+            'Suppliers/Show',
+            ['supplier' => $supplier, 'purchases' => $purchases, 'purchaseDetails' => $purchaseDetails]
+        );
     }
 
     /**

@@ -6,7 +6,6 @@ import Paginate from "@/Components/Paginate";
 import { Pencil, Trash, Eye } from "@/icons";
 import Swal from "sweetalert2";
 import { Inertia } from "@inertiajs/inertia";
-import { toastMessage } from "@/utils/ToastMessage";
 
 const Index = ({ auth, errors, clients }) => {
     const handleClick = (id) => {
@@ -21,7 +20,6 @@ const Index = ({ auth, errors, clients }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Inertia.delete(`/clients/${id}`);
-                toastMessage("top-end", "success", "Cliente borrado");
             }
         });
     };

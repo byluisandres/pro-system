@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, Link } from "@inertiajs/inertia-react";
 import { CheckCircle, Pencil, Trash, XCircle } from "@/icons";
@@ -6,7 +6,6 @@ import Paginate from "@/Components/Paginate";
 import Swal from "sweetalert2";
 import { Inertia } from "@inertiajs/inertia";
 import HeaderSection from "@/Components/HeaderSection";
-import { toastMessage } from "@/utils/ToastMessage";
 
 const Index = ({ auth, errors, categories }) => {
     const handleClick = (id) => {
@@ -21,7 +20,6 @@ const Index = ({ auth, errors, categories }) => {
         }).then((result) => {
             if (result.isConfirmed) {
                 Inertia.delete(`/categories/${id}`);
-                toastMessage("top-end", "success", "Categoría borrada");
             }
         });
     };
