@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import { Inertia } from "@inertiajs/inertia";
 
 const Index = ({ auth, errors, purchases }) => {
-    console.log(purchases);
+
     const handleClick = (id) => {
         Swal.fire({
             title: "¿Estás seguro de querer eliminarlo?",

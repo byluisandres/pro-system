@@ -5267,7 +5267,7 @@ var ProductSummary = function ProductSummary(_ref) {
       (0,_utils_ToastMessage__WEBPACK_IMPORTED_MODULE_4__.toastMessage)("top-end", "warning", "La cantidad tiene que ser mayor que cero");
     } else if (amount > stock) {
       setAmount(1);
-      (0,_utils_ToastMessage__WEBPACK_IMPORTED_MODULE_4__.toastMessage)("top-end", "warning", "El producto excede el stock disponible");
+      (0,_utils_ToastMessage__WEBPACK_IMPORTED_MODULE_4__.toastMessage)("top-end", "warning", "Excede el stock disponible del producto ".concat(name));
     } else {
       // crear un nuevo objeto con la cantidad
       var newProduct = _objectSpread(_objectSpread({}, product), {}, {
@@ -7538,19 +7538,94 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Layouts_Authenticated__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Layouts/Authenticated */ "./resources/js/Layouts/Authenticated.js");
 /* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _icons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/icons */ "./resources/js/icons/index.js");
+/* harmony import */ var _utils_formatCurrency__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/utils/formatCurrency */ "./resources/js/utils/formatCurrency.js");
+/* harmony import */ var _utils_formatMonth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/utils/formatMonth */ "./resources/js/utils/formatMonth.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
 
 
-function Dashboard(props) {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)(_Layouts_Authenticated__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    auth: props.auth,
-    errors: props.errors,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.Head, {
+
+
+
+function Dashboard(_ref) {
+  var auth = _ref.auth,
+      errors = _ref.errors,
+      purchasesMonth = _ref.purchasesMonth,
+      salesMonth = _ref.salesMonth;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_Layouts_Authenticated__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    auth: auth,
+    errors: errors,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.Head, {
       title: "Dashboard"
-    }), "sdfsd"]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("section", {
+      className: "grid grid-cols-1 sm:grid-cols-2 gap-4",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("article", {
+        className: "border-2 border-green-500 rounded-md  font-bold shadow-md shadow-green-500/50",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "flex justify-between items-center p-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [salesMonth.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+              className: "text-xl",
+              children: [(0,_utils_formatCurrency__WEBPACK_IMPORTED_MODULE_4__.formatCurrency)(salesMonth[0].total), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+                className: "ml-3",
+                children: ["(", (0,_utils_formatMonth__WEBPACK_IMPORTED_MODULE_5__.formatMonth)(salesMonth[0].MONTH), ")"]
+              })]
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "text-xl",
+              children: "Sin ventas completadas"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "text-neutral-500",
+              children: "Ventas"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_icons__WEBPACK_IMPORTED_MODULE_3__.ChartPie, {
+              className: "text-green-900 h-10 w-10"
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "bg-green-500 p-3",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.Link, {
+            href: route("sales.index"),
+            className: "hover:underline text-neutral-50 flex justify-between items-center",
+            children: ["Ver todas", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_icons__WEBPACK_IMPORTED_MODULE_3__.ArrowRight, {})]
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("article", {
+        className: "border-2 border-red-500 rounded-md font-bold shadow-md shadow-red-500/50",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          className: "flex justify-between items-center p-3",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: [purchasesMonth.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("p", {
+              className: "text-xl",
+              children: [(0,_utils_formatCurrency__WEBPACK_IMPORTED_MODULE_4__.formatCurrency)(purchasesMonth[0].total), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+                className: "ml-3",
+                children: ["(", (0,_utils_formatMonth__WEBPACK_IMPORTED_MODULE_5__.formatMonth)(purchasesMonth[0].MONTH), ")"]
+              })]
+            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "text-xl",
+              children: "Sin compras completadas"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("p", {
+              className: "text-neutral-500",
+              children: "Compras"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_icons__WEBPACK_IMPORTED_MODULE_3__.Cart, {
+              className: "text-red-900 h-10 w-10"
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          className: "bg-red-500 p-3",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(_inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_2__.Link, {
+            href: route("purchases.index"),
+            className: "hover:underline text-neutral-50 flex justify-between items-center",
+            children: ["Ver todas", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_icons__WEBPACK_IMPORTED_MODULE_3__.ArrowRight, {})]
+          })
+        })]
+      })]
+    })]
   });
 }
 
@@ -8614,7 +8689,6 @@ var Index = function Index(_ref) {
   var auth = _ref.auth,
       errors = _ref.errors,
       purchases = _ref.purchases;
-  console.log(purchases);
 
   var handleClick = function handleClick(id) {
     sweetalert2__WEBPACK_IMPORTED_MODULE_7___default().fire({
@@ -10017,6 +10091,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "Pencil": () => (/* binding */ Pencil),
 /* harmony export */   "Trash": () => (/* binding */ Trash),
 /* harmony export */   "ChevronLeft": () => (/* binding */ ChevronLeft),
+/* harmony export */   "ChevronRight": () => (/* binding */ ChevronRight),
 /* harmony export */   "CheckCircle": () => (/* binding */ CheckCircle),
 /* harmony export */   "XCircle": () => (/* binding */ XCircle),
 /* harmony export */   "Image": () => (/* binding */ Image),
@@ -10024,7 +10099,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "File": () => (/* binding */ File),
 /* harmony export */   "ChevronDown": () => (/* binding */ ChevronDown),
 /* harmony export */   "ChevronUp": () => (/* binding */ ChevronUp),
-/* harmony export */   "Pdf": () => (/* binding */ Pdf)
+/* harmony export */   "Pdf": () => (/* binding */ Pdf),
+/* harmony export */   "ArrowRight": () => (/* binding */ ArrowRight)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
@@ -10228,8 +10304,24 @@ var ChevronLeft = function ChevronLeft(_ref12) {
     })
   });
 };
-var CheckCircle = function CheckCircle(_ref13) {
+var ChevronRight = function ChevronRight(_ref13) {
   var className = _ref13.className;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    className: "h-6 w-6 ".concat(className),
+    fill: "none",
+    viewBox: "0 0 24 24",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      d: "M9 5l7 7-7 7"
+    })
+  });
+};
+var CheckCircle = function CheckCircle(_ref14) {
+  var className = _ref14.className;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: "h-6 w-6 ".concat(className),
@@ -10244,8 +10336,8 @@ var CheckCircle = function CheckCircle(_ref13) {
     })
   });
 };
-var XCircle = function XCircle(_ref14) {
-  var className = _ref14.className;
+var XCircle = function XCircle(_ref15) {
+  var className = _ref15.className;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: "h-6 w-6 ".concat(className),
@@ -10260,8 +10352,8 @@ var XCircle = function XCircle(_ref14) {
     })
   });
 };
-var Image = function Image(_ref15) {
-  var className = _ref15.className;
+var Image = function Image(_ref16) {
+  var className = _ref16.className;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: "h-6 w-6 ".concat(className),
@@ -10276,8 +10368,8 @@ var Image = function Image(_ref15) {
     })
   });
 };
-var Eye = function Eye(_ref16) {
-  var className = _ref16.className;
+var Eye = function Eye(_ref17) {
+  var className = _ref17.className;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: "h-6 w-6 ".concat(className),
@@ -10297,8 +10389,8 @@ var Eye = function Eye(_ref16) {
     })]
   });
 };
-var File = function File(_ref17) {
-  var className = _ref17.className;
+var File = function File(_ref18) {
+  var className = _ref18.className;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: "h-6 w-6 ".concat(className),
@@ -10313,8 +10405,8 @@ var File = function File(_ref17) {
     })
   });
 };
-var ChevronDown = function ChevronDown(_ref18) {
-  var className = _ref18.className;
+var ChevronDown = function ChevronDown(_ref19) {
+  var className = _ref19.className;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: "h-6 w-6 ".concat(className),
@@ -10329,8 +10421,8 @@ var ChevronDown = function ChevronDown(_ref18) {
     })
   });
 };
-var ChevronUp = function ChevronUp(_ref19) {
-  var className = _ref19.className;
+var ChevronUp = function ChevronUp(_ref20) {
+  var className = _ref20.className;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: "h-6 w-6 ".concat(className),
@@ -10345,8 +10437,8 @@ var ChevronUp = function ChevronUp(_ref19) {
     })
   });
 };
-var Pdf = function Pdf(_ref20) {
-  var className = _ref20.className;
+var Pdf = function Pdf(_ref21) {
+  var className = _ref21.className;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     className: "h-6 w-6 ".concat(className),
@@ -10402,6 +10494,22 @@ var Pdf = function Pdf(_ref20) {
       strokeLinejoin: "round",
       strokeWidth: "24"
     })]
+  });
+};
+var ArrowRight = function ArrowRight(_ref22) {
+  var className = _ref22.className;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    className: "h-6 w-6 ".concat(className),
+    fill: "none",
+    viewBox: "0 0 24 24",
+    stroke: "currentColor",
+    strokeWidth: 2,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+      strokeLinecap: "round",
+      strokeLinejoin: "round",
+      d: "M14 5l7 7m0 0l-7 7m7-7H3"
+    })
   });
 };
 
@@ -11259,6 +11367,78 @@ var formatCurrency = function formatCurrency(number) {
     style: "currency",
     currency: "EUR"
   }).format(number);
+};
+
+/***/ }),
+
+/***/ "./resources/js/utils/formatMonth.js":
+/*!*******************************************!*\
+  !*** ./resources/js/utils/formatMonth.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "formatMonth": () => (/* binding */ formatMonth)
+/* harmony export */ });
+var formatMonth = function formatMonth(m) {
+  var month;
+
+  switch (m) {
+    case 1:
+      month = "ENERO";
+      break;
+
+    case 2:
+      month = "FEBRERO";
+      break;
+
+    case 3:
+      month = "MARZO";
+      break;
+
+    case 4:
+      month = "ABRIL";
+      break;
+
+    case 5:
+      month = "MAYO";
+      break;
+
+    case 6:
+      month = "JUNIO";
+      break;
+
+    case 7:
+      month = "JULIO";
+      break;
+
+    case 8:
+      month = "AGOSTO";
+      break;
+
+    case 9:
+      month = "SEPTIEMBRE";
+      break;
+
+    case 10:
+      month = "OCTUBRE";
+      break;
+
+    case 11:
+      month = "NOVIEMBRE";
+      break;
+
+    case 12:
+      month = "DICIEMBRE";
+      break;
+
+    default:
+      break;
+  }
+
+  return month;
 };
 
 /***/ }),

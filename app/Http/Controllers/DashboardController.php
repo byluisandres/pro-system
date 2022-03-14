@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -14,7 +15,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Dashboard');
+        $purchasesMonth = DB::select('SELECT MONTH(date_purchase) AS MONTH , SUM(total) as total
+        from purchases WHERE STATUS="COMPLETADO"  GROUP BY MONTH(date_purchase)');
+        $salesMonth = DB::select('SELECT MONTH(date_sales) AS MONTH , SUM(total) as total
+        from sales WHERE STATUS="COMPLETADO"  GROUP BY MONTH(date_sales)');
+        return Inertia::render('Dashboard', ['purchasesMonth' => $purchasesMonth, 'salesMonth' => $salesMonth]);
     }
 
     /**

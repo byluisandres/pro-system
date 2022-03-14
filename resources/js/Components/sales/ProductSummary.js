@@ -27,7 +27,7 @@ const ProductSummary = ({ product }) => {
             toastMessage(
                 "top-end",
                 "warning",
-                "El producto excede el stock disponible"
+                `Excede el stock disponible del producto ${name}`
             );
         } else {
             // crear un nuevo objeto con la cantidad
