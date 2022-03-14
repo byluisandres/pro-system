@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChartsController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -47,6 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/sales/pdf/{sale}', [SalesController::class, 'generatepdf'])->name('sale.pdf');
 
     Route::resource('clients', ClientController::class);
+
+    Route::get('/chart/sales', [ChartsController::class, 'getDataSales']);
+    Route::get('/chart/purchases', [ChartsController::class, 'getDataPurchases']);
 });
 
 

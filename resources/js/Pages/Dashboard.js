@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Authenticated from "@/Layouts/Authenticated";
 import { Head, Link } from "@inertiajs/inertia-react";
-import { ChartPie, ArrowRight, Cart } from "@/icons";
+import { ChartPie, ArrowRight, Cart, ChevronDown, ChevronUp } from "@/icons";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatMonth } from "@/utils/formatMonth";
+import BarChart from "@/Components/BarChart";
+import BarChartHorizontal from "@/Components/BarChartHorizontal";
 
 export default function Dashboard({
     auth,
@@ -11,6 +13,11 @@ export default function Dashboard({
     purchasesMonth,
     salesMonth,
 }) {
+    const [show, setShow] = useState(false);
+
+    const handleClick = () => {
+        setShow(!show);
+    };
     return (
         <Authenticated auth={auth} errors={errors}>
             <Head title="Dashboard" />
@@ -78,6 +85,24 @@ export default function Dashboard({
                     </div>
                 </article>
             </section>
+            <section className="mt-4 flex justify-end items-center">
+                <button
+                    className="underline flex gap-1"
+                    onClick={handleClick}
+                >
+                    Ver gráficas {show ? <ChevronDown /> : <ChevronUp />}
+                </button>
+            </section>
+            {show && (
+                <section className="mt-4">
+                    <article className="border shadow-md p-2">
+                        <BarChart />
+                    </article>
+                    <article className="border shadow-md mt-4 p-2">
+                        <BarChartHorizontal />
+                    </article>
+                </section>
+            )}
         </Authenticated>
     );
 }
