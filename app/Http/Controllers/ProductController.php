@@ -41,7 +41,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            "name" => "required|min:3",
+            "name" => "required|min:3|unique:products",
             "sales_price" => "required",
             "stock" => "required",
             "category_id" => "required"

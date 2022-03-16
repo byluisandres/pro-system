@@ -45,7 +45,7 @@ class SalesController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'num_sales' => 'required',
+            'num_sales' => 'required|unique:sales',
             'total' => 'required',
             'client_id' => 'required',
             'products' => 'required'

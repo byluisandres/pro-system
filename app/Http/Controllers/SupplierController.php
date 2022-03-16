@@ -41,15 +41,15 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|min:3',
+            'name' => 'required|min:3|unique:suppliers',
             'phone' => 'required',
-            'email' => 'required'
+            'email' => 'required|unique:suppliers,email'
         ]);
         Supplier::create([
             'name' => $data['name'],
             'type_document' => $request['type_document'],
             'num_document' => $request['num_document'],
-            'direction' => $request['direction'],
+            'address' => $request['address'],
             'phone' => $data['phone'],
             'email' => $data['email'],
         ]);
@@ -113,7 +113,7 @@ class SupplierController extends Controller
         $supplier->email = $data['email'];
         $supplier->type_document = $request['type_document'];
         $supplier->num_document = $request['num_document'];
-        $supplier->direction = $request['direction'];
+        $supplier->address = $request['address'];
 
         $supplier->save();
 

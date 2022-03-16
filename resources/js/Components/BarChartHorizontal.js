@@ -92,7 +92,11 @@ const BarChartHorizontal = () => {
             },
         ],
     };
-    return <Bar options={options} data={data} height={120} />;
+    return data.length > 0 ? (
+        <Bar options={options} data={data} height={120} />
+    ) : (
+        <p className="text-center">Aún no hay compras completadas</p>
+    );
 };
 
 export default BarChartHorizontal;

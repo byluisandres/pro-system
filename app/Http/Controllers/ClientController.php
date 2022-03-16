@@ -39,9 +39,9 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|min:3',
+            'name' => 'required|min:3|unique:clients',
             'phone' => 'required',
-            'email' => 'required'
+            'email' => 'required|unique:clients,email'
         ]);
         Client::create([
             'name' => $data['name'],

@@ -41,4 +41,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Evento cuand un usuario se crea
+    public static function boot()
+    {
+        parent::boot();
+
+        // Asignar el perfil
+        static::created(function ($user) {
+            $user->profile()->create();
+        });
+    }
+    //1:1 user:profile
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

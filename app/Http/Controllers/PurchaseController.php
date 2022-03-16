@@ -46,7 +46,7 @@ class PurchaseController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'num_purchase' => 'required',
+            'num_purchase' => 'required|unique:purchases',
             'total' => 'required',
             'supplier_id' => 'required',
             'products' => 'required'

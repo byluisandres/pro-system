@@ -83,6 +83,10 @@ const BarChart = () => {
             },
         ],
     };
-    return <Bar options={options} data={data} height={120} />;
+    return data.length > 0 ? (
+        <Bar options={options} data={data} height={120} />
+    ) : (
+        <p className="text-center">Aún no hay ventas completadas</p>
+    );
 };
 export default BarChart;

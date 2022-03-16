@@ -62,9 +62,11 @@ const Header = ({ auth }) => {
 
                         <Dropdown.Content>
                             <Dropdown.Link
-                                href={route("logout")}
-                                method="post"
-                                as="button"
+                                href={route("profile.show", {
+                                    profile: auth.user.id,
+                                })}
+                                method="get"
+                                as="a"
                             >
                                 Perfil
                             </Dropdown.Link>
